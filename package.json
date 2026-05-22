@@ -1,0 +1,80 @@
+{
+  "name": "typerry",
+  "version": "0.0.1",
+  "description": "TypeScript to WebAssembly compiler — standalone, zero dependencies, Rust-powered via perry. compile .ts directly to .wasm for performance, cryptography, edge computing, code protection, and portable cross-platform libraries.",
+  "main": "index.js",
+  "bin": {
+    "typerry": "index.js"
+  },
+  "type": "module",
+  "napi": {
+    "binaryName": "typerry",
+    "outputDir": "dist"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/",
+    "index.js"
+  ],
+  "scripts": {
+    "extract": "node extract.js",
+    "build": "npm run extract && napi build --platform --release --esm --output-dir dist",
+    "example": "bash example.sh",
+    "example:js": "bash example.sh js all",
+    "example:rs": "bash example.sh rs all"
+  },
+  "keywords": [
+    "typescript",
+    "webassembly",
+    "wasm",
+    "compiler",
+    "ts-to-wasm",
+    "ts2wasm",
+    "rust",
+    "native",
+    "transpiler",
+    "codegen",
+    "standalone",
+    "zero-runtime",
+    "perry",
+    "swc",
+    "nodejs",
+    "bun",
+    "assemblyscript",
+    "wasm-compiler",
+    "wasm-generator",
+    "build-tool",
+    "addon",
+    "performance",
+    "cryptography",
+    "encryption",
+    "edge-computing",
+    "serverless",
+    "code-protection",
+    "plugin-system",
+    "cross-platform",
+    "portable"
+  ],
+  "homepage": "https://github.com/fn-a/typerry#readme",
+  "bugs": {
+    "url": "https://github.com/fn-a/typerry/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fn-a/typerry.git"
+  },
+  "author": "fn-a <mr.fna.co@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 18"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.6.2"
+  }
+}

@@ -1,0 +1,5 @@
+# git submodule add https://github.com/PerryTS/perry.git perry
+# git rm -r --cached perry
+[submodule "perry"]
+	path = perry
+	url = https://github.com/PerryTS/perry.git

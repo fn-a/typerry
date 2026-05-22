@@ -1,6 +1,30 @@
 [package]
 name = "typerry"
 version = "0.0.1"
+authors = ["fn-a <mr.fna.co@gmail.com>"]
 edition = "2024"
+repository = "https://github.com/fn-a/typerry"
+description = "Standalone TypeScript to WebAssembly compiler extracted from Perry"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[profile.release]
+opt-level = "z"     # 优化为最小体积
+lto = true          # 启用链接时优化
+codegen-units = 1   # 减少代码生成单元
+strip = true        # 自动去除符号表
+panic = "abort"     # 使用 abort 代替 unwind，减少体积
 
 [dependencies]
+napi = { version = "^3", default-features = false, features = ["napi6"] }
+napi-derive = "^3"
+anyhow = "1.0"
+base64 = "^0.22"
+clap = { version = "^4.6", features = ["derive"] }
+
+perry-parser = { path = "./perry/crates/perry-parser" }
+perry-hir = { path = "./perry/crates/perry-hir" }
+perry-codegen-wasm = { path = "./perry/crates/perry-codegen-wasm" }
+perry-codegen-js = { path = "./perry/crates/perry-codegen-js" }
