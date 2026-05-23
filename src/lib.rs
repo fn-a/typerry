@@ -49,8 +49,7 @@ pub fn wasm_boot(source: &str, imports: &str, autobt: bool, minify: bool) -> Res
     let output = compile_to_wasm_with_async(&modules);
     let mut runtime = splice(&output, imports, minify)?;
 
-    if autobt {
-        runtime += r#"
+    runtime += r#"
 async function bootFetchWasm(wasmPath, ffiImports) {
   if (ffiImports) {
     if (typeof __ffiImports === 'undefined') {
@@ -79,7 +78,11 @@ async function bootFetchWasm(wasmPath, ffiImports) {
   } else if (wasmInstance.exports.main) {
     wasmInstance.exports.main();
   }
-}
+  return wasmInstance;
+}"#;
+
+    if autobt {
+        runtime += r#"
 function getWasmFilePath() {
   const fileUrl = import.meta?.url || __filename;
   const fileName = fileUrl.split(/[\\/]/).pop();

@@ -1,6 +1,6 @@
 {
   "name": "typerry",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "TypeScript to WebAssembly compiler — standalone, zero dependencies, Rust-powered via perry. compile .ts directly to .wasm for performance, cryptography, edge computing, code protection, and portable cross-platform libraries.",
   "main": "index.js",
   "bin": {
