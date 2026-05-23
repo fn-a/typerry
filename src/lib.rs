@@ -145,6 +145,7 @@ fn parse(source: &str) -> Result<Vec<(String, Module)>> {
 }
 
 // napi-rs wrappers — callable from Node.js / Bun / Deno
+#[cfg(feature = "napi")]
 pub mod expose {
     use napi::{Error, Result};
     use napi::bindgen_prelude::Buffer;
