@@ -12,7 +12,7 @@ crate-type = ["cdylib", "rlib"]
 
 [profile.release]
 opt-level = "z"     # 优化为最小体积
-lto = true          # 启用链接时优化
+lto = "thin"        # ThinL 避免 binary target 拉入 napi 符号导致链接失败
 codegen-units = 1   # 减少代码生成单元
 strip = true        # 自动去除符号表
 panic = "abort"     # 使用 abort 代替 unwind，减少体积

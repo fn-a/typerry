@@ -24,7 +24,7 @@
   ],
   "scripts": {
     "extract": "node extract.js",
-    "build": "npm run extract && napi build --platform --release --esm --output-dir dist --cargo-flags=\"--lib\"",
+    "build": "npm run extract && napi build --platform --release --esm --output-dir dist",
     "example": "bash example.sh",
     "example:js": "bash example.sh js all",
     "example:rs": "bash example.sh rs all"
