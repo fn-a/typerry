@@ -1,5 +1,8 @@
 # git submodule add https://github.com/PerryTS/perry.git perry
+# rm -rf perry
+# rm -rf .git/modules/perry
 # git rm -r --cached perry
+# git submodule deinit -f perry
 # git submodule update --init --recursive
 [submodule "perry"]
 	path = perry
