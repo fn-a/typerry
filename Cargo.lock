@@ -1217,6 +1217,7 @@ dependencies = [
  "base64",
  "clap",
  "napi",
+ "napi-build",
  "napi-derive",
  "perry-codegen-js",
  "perry-codegen-wasm",

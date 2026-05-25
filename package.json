@@ -9,57 +9,45 @@
   "type": "module",
   "napi": {
     "binaryName": "typerry",
-    "outputDir": "dist"
+    "outputDir": "dist",
+    "targets": [
+      "x86_64-unknown-linux-gnu",
+      "aarch64-unknown-linux-gnu",
+      "x86_64-apple-darwin",
+      "aarch64-apple-darwin",
+      "x86_64-pc-windows-msvc",
+      "aarch64-pc-windows-msvc"
+    ]
   },
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.js",
+      "default": "./dist/index.js",
       "types": "./dist/index.d.ts"
     }
   },
   "files": [
-    "dist/",
+    "dist/index.js",
+    "dist/index.d.ts",
     "index.js"
   ],
   "scripts": {
     "extract": "node extract.js",
+    "artifacts": "napi artifacts -d dist --npm-dir dist/npm",
     "build": "npm run extract && napi build --platform --release --esm --output-dir dist --no-default-features --features napi",
     "example": "bash example.sh",
     "example:js": "bash example.sh js all",
-    "example:rs": "bash example.sh rs all"
+    "example:rs": "bash example.sh rs all",
+    "prepublishOnly": "napi prepublish -p dist/npm -t npm"
   },
   "keywords": [
-    "typescript",
-    "webassembly",
-    "wasm",
-    "compiler",
-    "ts-to-wasm",
-    "ts2wasm",
-    "rust",
-    "native",
-    "transpiler",
-    "codegen",
-    "standalone",
-    "zero-runtime",
-    "perry",
-    "swc",
-    "nodejs",
-    "bun",
-    "assemblyscript",
-    "wasm-compiler",
-    "wasm-generator",
-    "build-tool",
-    "addon",
-    "performance",
-    "cryptography",
-    "encryption",
-    "edge-computing",
-    "serverless",
-    "code-protection",
-    "plugin-system",
-    "cross-platform",
-    "portable"
+    "typescript", "webassembly", "wasm", "compiler", "ts-to-wasm", "ts2wasm", 
+    "rust", "native", "transpiler", "codegen", "standalone", "zero-runtime", 
+    "perry", "swc", "nodejs", "bun", "assemblyscript", "wasm-compiler", 
+    "wasm-generator", "build-tool", "addon", "performance", "cryptography", 
+    "encryption", "edge-computing", "serverless", "code-protection", 
+    "plugin-system", "cross-platform", "portable"
   ],
   "homepage": "https://github.com/fn-a/typerry#readme",
   "bugs": {

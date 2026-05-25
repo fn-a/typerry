@@ -11,21 +11,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - platform: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-          - platform: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
-          - platform: macos-latest
-            target: x86_64-apple-darwin
-          - platform: macos-latest
-            target: aarch64-apple-darwin
-          - platform: windows-latest
-            target: x86_64-pc-windows-msvc
-          - platform: windows-latest
-            target: aarch64-pc-windows-msvc
+        settings:
+          - target: x86_64-unknown-linux-gnu
+            flags: '--use-napi-cross'
+          - target: aarch64-unknown-linux-gnu
+            flags: '--use-napi-cross'
+          - target: x86_64-apple-darwin
+            flags: '-x'
+          - target: aarch64-apple-darwin
+            flags: '-x'
+          - target: x86_64-pc-windows-msvc
+            flags: '-x'
+          - target: aarch64-pc-windows-msvc
+            flags: '-x'
 
-    runs-on: ${{ matrix.platform }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -42,19 +42,35 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
-          targets: ${{ matrix.target }}
+          targets: ${{ matrix.settings.target }}
+
+      - name: Install ziglang
+        uses: mlugg/setup-zig@v2
+        with:
+          version: 0.14.1
+
+      - name: Install cargo toolchains
+        uses: taiki-e/install-action@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tool: cargo-zigbuild,cargo-xwin
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build
-        run: npm run build -- --target ${{ matrix.target }}
+        run: npm run build -- --target ${{ matrix.settings.target }} ${{ matrix.settings.flags }}
+        env:
+          DEBUG: 'napi:*'
+          MACOSX_DEPLOYMENT_TARGET: '10.13'
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: typerry-${{ matrix.target }}
-          path: dist/*.node
+          name: typerry-${{ matrix.settings.target }}
+          path: dist/*.node 
+          if-no-files-found: error
 
   publish:
     needs: build
@@ -79,7 +95,19 @@ jobs:
           pattern: typerry-*
           merge-multiple: true
 
+      - name: Move artifacts
+        run: npm run artifacts
+
       - name: Publish to npm
-        run: npm publish
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+          npm publish --access public
+          for pkg in dist/npm/*; do
+            if [ -d "$pkg" ]; then
+              cd "$pkg"
+              npm publish --access public
+              cd ../..
+            fi
+          done
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
