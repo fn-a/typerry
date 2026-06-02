@@ -47,6 +47,8 @@ const OUT = join(__dirname, "runtime.js");
 // Read source
 // ---------------------------------------------------------------------------
 let src = readFileSync(SRC, "utf-8");
+// Normalize CRLF → LF to protect against Windows Git autocrlf checkouts
+src = src.replace(/\r\n/g, "\n");
 
 // ===========================================================================
 // Edit 1 — Remove the inline uiMethodMap fallback inside class_call_method
