@@ -106,6 +106,9 @@ jobs:
           pattern: typerry-*
           merge-multiple: true
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Move artifacts
         run: npm run artifacts
 
