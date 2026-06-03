@@ -110,7 +110,9 @@ jobs:
         run: npm ci
 
       - name: Move artifacts
-        run: npm run artifacts
+        run: |
+          mkdir -p dist/npm
+          npm run artifacts
 
       - name: Publish to npm
         run: |
