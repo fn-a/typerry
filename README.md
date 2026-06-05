@@ -13,11 +13,11 @@ Under the hood it uses the [swc](https://swc.rs/) parser for TypeScript syntax, 
 ## Quick Start
 
 ```bash
-npm install typerry
+npm install @typerry/node
 ```
 
 ```js
-import { wasmBare, wasmBoot, wasmHtml } from "typerry";
+import { wasmBare, wasmBoot, wasmHtml } from "@typerry/node";
 
 // Compile TypeScript to raw WASM bytes
 const wasm = wasmBare("export function add(a: i32, b: i32): i32 { return a + b; }");
@@ -43,10 +43,13 @@ const html = wasmHtml(
 ### CLI
 
 ```bash
-npx typerry input.ts                  # → output.wasm + output.js
-npx typerry input.ts --html           # → output.html
-npx typerry input.ts --bare           # → output.wasm
-npx typerry input.ts -o dist/app -m   # custom output, minified
+npm install -g @typerry/node
+typerry input.ts                  # → output.wasm + output.js
+typerry input.ts --html           # → output.html
+typerry input.ts --bare           # → output.wasm
+typerry input.ts -o dist/app -m   # custom output, minified
+# or npx
+npx -p @typerry/node typerry
 ```
 
 ## Multiple Compilation Options
@@ -109,7 +112,7 @@ All stages are compiled to a single native `.node` addon via napi-rs, so the ent
 
 MIT
 
-[![npm version](https://img.shields.io/npm/v/typerry)](https://www.npmjs.com/package/typerry)
-[![license](https://img.shields.io/npm/l/typerry)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/@typerry/node)](https://www.npmjs.com/package/@typerry/node)
+[![license](https://img.shields.io/npm/l/@typerry/node)](LICENSE)
 
 *typerry is extracted from [Perry](https://github.com/PerryTS/perry), the native TypeScript compiler.*

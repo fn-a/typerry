@@ -13,11 +13,11 @@ typerry 将 TypeScript 源码直接编译为 WebAssembly——无需 JavaScript 
 ## 快速开始
 
 ```bash
-npm install typerry
+npm install @typerry/node
 ```
 
 ```js
-import { wasmBare, wasmBoot, wasmHtml } from "typerry";
+import { wasmBare, wasmBoot, wasmHtml } from "@typerry/node";
 
 // 编译 TypeScript 为裸 WASM 字节码
 const wasm = wasmBare("export function add(a: i32, b: i32): i32 { return a + b; }");
@@ -43,10 +43,13 @@ const html = wasmHtml(
 ### 命令行
 
 ```bash
-npx typerry input.ts                  # → output.wasm + output.js
-npx typerry input.ts --html           # → output.html
-npx typerry input.ts --bare           # → output.wasm
-npx typerry input.ts -o dist/app -m   # 自定义输出，压缩运行时
+npm install -g @typerry/node
+typerry input.ts                  # → output.wasm + output.js
+typerry input.ts --html           # → output.html
+typerry input.ts --bare           # → output.wasm
+typerry input.ts -o dist/app -m   # 自定义输出，压缩运行时
+# 或者临时运行
+npx -p @typerry/node typerry
 ```
 
 ## 多种编译方式
@@ -109,7 +112,7 @@ TypeScript 源码
 
 MIT
 
-[![npm version](https://img.shields.io/npm/v/typerry)](https://www.npmjs.com/package/typerry)
-[![license](https://img.shields.io/npm/l/typerry)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/@typerry/node)](https://www.npmjs.com/package/@typerry/node)
+[![license](https://img.shields.io/npm/l/@typerry/node)](LICENSE)
 
 *typerry 提取自 [Perry](https://github.com/PerryTS/perry) 原生 TypeScript 编译器。*

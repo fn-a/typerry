@@ -1,5 +1,5 @@
 {
-  "name": "typerry",
+  "name": "@typerry/node",
   "version": "0.0.2",
   "description": "TypeScript to WebAssembly compiler — standalone, zero dependencies, Rust-powered via perry. compile .ts directly to .wasm for performance, cryptography, edge computing, code protection, and portable cross-platform libraries.",
   "main": "index.js",
@@ -91,11 +91,11 @@
     "@napi-rs/cli": "^3.6.2"
   },
   "optionalDependencies": {
-    "typerry-linux-x64-gnu": "0.0.2",
-    "typerry-linux-arm64-gnu": "0.0.2",
-    "typerry-darwin-x64": "0.0.2",
-    "typerry-darwin-arm64": "0.0.2",
-    "typerry-win32-x64-msvc": "0.0.2",
-    "typerry-win32-arm64-msvc": "0.0.2"
+    "@typerry/node-linux-x64-gnu": "0.0.2",
+    "@typerry/node-linux-arm64-gnu": "0.0.2",
+    "@typerry/node-darwin-x64": "0.0.2",
+    "@typerry/node-darwin-arm64": "0.0.2",
+    "@typerry/node-win32-x64-msvc": "0.0.2",
+    "@typerry/node-win32-arm64-msvc": "0.0.2"
   }
 }
