@@ -4,7 +4,7 @@
   "description": "TypeScript to WebAssembly compiler — standalone, zero dependencies, Rust-powered via perry. compile .ts directly to .wasm for performance, cryptography, edge computing, code protection, and portable cross-platform libraries.",
   "main": "index.js",
   "bin": {
-    "typerry": "index.js"
+    "typerry": "main.js"
   },
   "type": "module",
   "napi": {
@@ -21,33 +21,58 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./index.js",
+      "require": "./index.js",
+      "default": "./index.js",
+      "types": "./index.d.ts"
     }
   },
   "files": [
-    "dist/index.js",
-    "dist/index.d.ts",
-    "index.js"
+    "index.js",
+    "index.d.ts",
+    "main.js"
   ],
   "scripts": {
     "extract": "node extract.js",
-    "artifacts": "napi artifacts -d dist --npm-dir dist/npm",
+    "artifacts": "napi artifacts -d dist",
+    "createnpm": "napi create-npm-dirs",
     "build": "npm run extract && napi build --platform --release --esm --output-dir dist --no-default-features --features napi",
     "example": "bash example.sh",
     "example:js": "bash example.sh js all",
     "example:rs": "bash example.sh rs all",
-    "prepublishOnly": "napi prepublish -p dist/npm -t npm"
+    "prepublishOnly": "napi prepublish -p npm -t npm --no-gh-release"
   },
   "keywords": [
-    "typescript", "webassembly", "wasm", "compiler", "ts-to-wasm", "ts2wasm", 
-    "rust", "native", "transpiler", "codegen", "standalone", "zero-runtime", 
-    "perry", "swc", "nodejs", "bun", "assemblyscript", "wasm-compiler", 
-    "wasm-generator", "build-tool", "addon", "performance", "cryptography", 
-    "encryption", "edge-computing", "serverless", "code-protection", 
-    "plugin-system", "cross-platform", "portable"
+    "typescript",
+    "webassembly",
+    "wasm",
+    "compiler",
+    "ts-to-wasm",
+    "ts2wasm",
+    "rust",
+    "native",
+    "transpiler",
+    "codegen",
+    "standalone",
+    "zero-runtime",
+    "perry",
+    "swc",
+    "nodejs",
+    "bun",
+    "assemblyscript",
+    "wasm-compiler",
+    "wasm-generator",
+    "build-tool",
+    "addon",
+    "performance",
+    "cryptography",
+    "encryption",
+    "edge-computing",
+    "serverless",
+    "code-protection",
+    "plugin-system",
+    "cross-platform",
+    "portable"
   ],
   "homepage": "https://github.com/fn-a/typerry#readme",
   "bugs": {
@@ -64,5 +89,13 @@
   },
   "devDependencies": {
     "@napi-rs/cli": "^3.6.2"
+  },
+  "optionalDependencies": {
+    "typerry-linux-x64-gnu": "0.0.2",
+    "typerry-linux-arm64-gnu": "0.0.2",
+    "typerry-darwin-x64": "0.0.2",
+    "typerry-darwin-arm64": "0.0.2",
+    "typerry-win32-x64-msvc": "0.0.2",
+    "typerry-win32-arm64-msvc": "0.0.2"
   }
 }

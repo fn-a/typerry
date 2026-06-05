@@ -6,3 +6,5 @@ runtime.js
 output.html
 output.wasm
 output.js
+*.node
+npm
