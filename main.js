@@ -160,25 +160,4 @@ async function cliexe(argv) {
   }
 }
 
-// Detect direct execution (CLI mode) vs. library import
-function detect(meta) {
-  // In Node.js / Bun / Deno, compare import.meta.url with the entry script.
-  // `process.argv[1]` holds the script path when run directly (except Deno).
-  if (typeof process !== "undefined" && process.argv?.[1]) {
-    const scriptPath = process.argv[1].replace(/\\/g, "/");
-    const thisPath = new URL(meta.url).pathname.replace(/\\/g, "/");
-    return scriptPath.endsWith(thisPath) || thisPath.endsWith(scriptPath);
-  }
-  // Deno: Deno.mainModule check
-  if (typeof globalThis.Deno !== "undefined") {
-    return meta.url === Deno.mainModule;
-  }
-  return false;
-}
-
-if (detect(import.meta)) {
-  cliexe(process.argv.slice(2));
-}
-
-// Library exports
-export { wasmBare, wasmBoot, wasmHtml } from "./index.js";
+cliexe(process.argv.slice(2));
